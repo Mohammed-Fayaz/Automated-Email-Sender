@@ -1,5 +1,5 @@
 # Automated-Email-Sender
-This script was written for sending custom E-mail to a group of people automatically. This script was written sprecifically for the CSEA 
+This script was written for sending custom E-mail to a group of people automatically. It was written sprecifically for the CSEA 
 from NITC for a particular purpose and is thus tailored to that need. 
 
 ### Usage

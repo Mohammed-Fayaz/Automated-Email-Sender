@@ -3,7 +3,12 @@ from email.message import EmailMessage
 from string import Template
 
 
-def read_data(file):        # reads in data from a CSV text file
+def read_data(file):
+    """
+    reads in data from a CSV text file
+    :param file: input file path
+    :return: a list
+    """
     people = []
     with open(file) as fp:
         data = fp.readlines()
@@ -13,7 +18,12 @@ def read_data(file):        # reads in data from a CSV text file
     return people
 
 
-def clean_data(people):         # removes newline characters that may have found their way into the data
+def clean_data(people):
+    """
+    removes newline characters that may have found their way into the data
+    :param people: list of people details
+    :return: a list of formatted people details
+    """
     for person_details in people:
         person_details[:] = person_details[1:]
         if person_details[len(person_details) - 1] == '\n':
@@ -23,25 +33,50 @@ def clean_data(people):         # removes newline characters that may have found
     return people
 
 
-def remove_unwanted_details(people):    # retains only necessary information required for the Email
+def remove_unwanted_details(people):
+    """
+    retains only necessary information required for the Email
+    :param people: list
+    :return: list of people details
+    """
     for person_details in people:
         person_details[:] = person_details[0:1] + person_details[3:4] + person_details[-3:]
     return people
 
 
-def print_details(people):      # prints the data onto the console
+def print_details(people):
+    """
+    prints the data onto the console
+    :param people: list of people
+    :return: None
+    """
     print(len(people))
     for person_details in people:
         print(person_details)
 
 
-def read_template(file):        # reads in the file and returns a template object
+def read_template(file):
+    """
+    reads in the file and returns a template object
+    :param file: input file path
+    :return: template object
+    """
     with open(file) as fp:
         message = fp.read()
     return Template(message)
 
 
-def create_message(temp, new_file, name, phone_no, email_id, domain):  # creates a new message from the template object
+def create_message(temp, new_file, name, phone_no, email_id, domain):
+    """
+    creates a new message from the template object
+    :param temp: input template object
+    :param new_file: path of destination file
+    :param name: mentor name
+    :param phone_no: phone number of mentor
+    :param email_id: email id of mentor
+    :param domain: domain of interest for the participant
+    :return: None
+    """
     dict_subs = {'mentor_name': name, 'mentor_phone': phone_no, 'mentor_email': email_id,
                  'domain': domain}
 
@@ -50,14 +85,23 @@ def create_message(temp, new_file, name, phone_no, email_id, domain):  # creates
         fp.write(new_msg)
 
 
-def ok(person_details):     # returns True is all data is filled in, False otherwise
+def ok(person_details):
+    """
+    returns True is all data is filled in, False otherwise
+    :param person_details: a list of person details
+    :return: Boolean (True if no value is empty)
+    """
     for detail in person_details:
         if detail == '':
             return False
     return True
 
 
-def main():         # sends an e-mail using the SMTP protocol (connecting via TLS)
+def main():
+    """
+    sends an e-mail using the SMTP protocol (connecting via TLS)
+    :return: None
+    """
     people = read_data('data.txt')
     people = clean_data(people)
     people = remove_unwanted_details(people)
